@@ -18,7 +18,7 @@ $id = $_GET['id'];
 
 include('dbconnect.php');
 
-//create query
+//create query to order stock
 
 $query = "SELECT * FROM stock WHERE item_id='$id'";
 
@@ -27,7 +27,7 @@ $result = mysqli_query($conn, $query);
 
 
 ?>
-
+<!-- Making the Order Stock Form page-->
 <div class="container bg-info" stype="padding-top:20px;">
 
 <h3>Order Stock Form</h3>
@@ -41,7 +41,7 @@ while ($row = mysqli_fetch_assoc($result)){
 
 
 ?>
-
+<!-- creating order request boxes for the stock -->
 <input type="hidden" name="id" value="<?php echo $row['item_id']; ?>">
 
 <div class="form-group">
