@@ -6,13 +6,13 @@ $bid = $_GET['id'];
 
 include('dbconnect.php');
 
-//query
+//delete query for removing stock
 
 $query = "DELETE FROM stock WHERE item_id='$bid' ";
 
 if(mysqli_query($conn ,$query)){
 
-    // redirect
+    // redirect to homepage
 
     header("Location:Stock4.php");
 
