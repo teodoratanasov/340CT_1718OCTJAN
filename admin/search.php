@@ -5,11 +5,11 @@ $servername = "localhost";
 $username="root";
 $password="";
 $dbname="scm2_db";
-$Rollno="";
-$fname="";
-$lname="";
-$address="";
-$email="";
+$itemid="";
+$name="";
+$price="";
+$quantity="";
+$date="";
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
@@ -30,7 +30,7 @@ function getData()
 	$data[4]=$_POST['item_date'];
 	return $data;
 }
-//search
+//search for stock in the database
 if(isset($_POST['search']))
 {
 	$info = getData();
@@ -42,15 +42,15 @@ if(isset($_POST['search']))
 			{
 				while($rows = mysqli_fetch_array($search_result))
 				{
-					$Rollno = $rows['item_id'];
-					$fname = $rows['item_name'];
-					$lname = $rows['item_price'];
-					$address = $rows['item_quantity'];
-					$email = $rows['item_date'];
+					$itemid = $rows['item_id'];
+					$name = $rows['item_name'];
+					$price = $rows['item_price'];
+					$quantity = $rows['item_quantity'];
+					$date = $rows['item_date'];
 					
 				}
 			}else{
-				echo("no data are available");
+				echo("NO SUCH STOCK IN THE SYSTEM");
 			}
 		} else{
 			echo("result error");
@@ -58,7 +58,7 @@ if(isset($_POST['search']))
 	
 }
 
-//delete
+//delete data from the database
 if(isset($_POST['delete'])){
 	$info = getData();
 	$delete_query = "DELETE FROM `stock` WHERE item_id = '$info[0]'";
@@ -76,7 +76,7 @@ if(isset($_POST['delete'])){
 		echo("error in delete".$ex->getMessage());
 	}
 }
-//edit
+//order stock query
 if(isset($_POST['update'])){
 	$info = getData();
 	$update_query="UPDATE `stock` SET `item_name`='$info[1]',item_price='$info[2]',item_quantity='$info[3]',item_date='$info[4]' WHERE item_id = '$info[0]'";
@@ -109,33 +109,32 @@ if(isset($_POST['update'])){
 <body>
   <div class="container bg-info" stype="padding-top:20px;"> 
   <h3>Search Stock Form</h3>
-  
+<!-- creating the search stock form-->
 <form method ="post" action="search.php">
   <div class="form-group">
   <label>Item Code</label>
-	<input type="number" name="item_id" class="form-control" value="<?php echo($Rollno);?>">
+	<input type="number" name="item_id" class="form-control" value="<?php echo($itemid);?>">
 	</div>
   <div class="form-group">
   <label>Item Name</label>
-  <input type="text" name="item_name" class="form-control" value="<?php echo($fname);?>">
+  <input type="text" name="item_name" class="form-control" value="<?php echo($name);?>">
 	</div>
   <div class="form-group">
   <label>Item Price</label>
-  <input type="text" name="item_price" class="form-control"value="<?php echo($lname);?>">
+  <input type="text" name="item_price" class="form-control"value="<?php echo($price);?>">
 	</div>
   <div class="form-group">
   <label>Item Quantity</label>
-  <input type="text" name="item_quantity" class="form-control" value="<?php echo($address);?>">
+  <input type="text" name="item_quantity" class="form-control" value="<?php echo($quantity);?>">
 	</div>
   <div class="form-group">
   <label>Date</label>
-  <input type="text" name="item_date" class="form-control" value="<?php echo($email);?>">
+  <input type="text" name="item_date" class="form-control" value="<?php echo($date);?>">
 	</div>
-  
-		
+  <!-- adding buttons for the different functions-->
+		<input type="submit" class="btn btn-info btn-block" name="search" value="Find">
+		<input type="submit" class="btn btn-primary" name="update" value="Order">
 		<input type="submit" class="btn btn-danger" name="delete" value="Delete">
-		<input type="submit" class="btn btn-primary" name="update" value="Update">
-		<input type="submit" class="btn btn-info" name="search" value="Find">
     <a href="Stock4.php" class="btn btn-warning" role="button">Back</a>
 		
 	
