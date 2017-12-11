@@ -91,10 +91,9 @@ Add New Stock</button>
 while ($row = mysqli_fetch_assoc($result)){
 
 
-
-?>
-
 //Display the stock from the database
+?>
+  
 <tr>
 <td><?php echo $row['item_id']; ?></td>
 <td><?php echo $row['item_name']; ?></td>
