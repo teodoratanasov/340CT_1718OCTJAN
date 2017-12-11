@@ -16,7 +16,7 @@
 
 include('dbconnect.php');
 
-//create query
+//create query 
 
 $query = "SELECT * FROM stock";
 
@@ -24,7 +24,7 @@ $result = mysqli_query($conn ,$query);
 
 
 ?>
-
+<!-- creating the home page -->
 <div class="container bg-info" style="padding-top:20px; padding-bottom:20px;"> 
   <h2>Stock</h2>
  <div class="row">
@@ -70,7 +70,7 @@ Add New Stock</button>
 </div>
 
 <div class="col-sm-12">
-
+<!-- creating the table stock form-->
 <table class="table">
 <thead>
 <tr>
@@ -91,21 +91,26 @@ Add New Stock</button>
 while ($row = mysqli_fetch_assoc($result)){
 
 
-//Display the stock from the database
+
 ?>
-  
+<!-- retrieving data from the database and displaying it in a table with some if else statements for the stock quantity-->
+
 <tr>
 <td><?php echo $row['item_id']; ?></td>
 <td><?php echo $row['item_name']; ?></td>
 <td><?php echo $row['item_price']; ?></td>
 <td><?php if($row['item_quantity'] > 10): ?>
     Available: <?php echo $row['item_quantity']; ?>
+    <?php elseif($row['item_quantity'] < 1):?>
+    Out of stock <?php ?>
+   
   <?php else: ?>
     Low on stock
   <?php endif; ?></td>
 <td><?php echo $row['item_date']; ?></td>
 <td>1</td>
 <td>
+<!-- creating the buttons for the delete and order functions-->
 <a href="editform.php?id=<?php echo $row['item_id']; ?>" class="btn btn-success" role="button">Order Stock</a>
 <a href="delete.php?id=<?php echo $row['item_id']; ?>" class="btn btn-danger" role="button">Delete Stock</a>
 
