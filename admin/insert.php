@@ -14,7 +14,7 @@ $quantity = $_POST['squantity'];
 
 $date = $_POST['sdate'];
 
-//creating query
+//creating query to add stock to the system
 
 $query = "INSERT INTO stock(item_id, item_name, item_price, item_quantity, item_date) VALUES('$id', '$name', '$price', '$quantity', '$date')";
 
